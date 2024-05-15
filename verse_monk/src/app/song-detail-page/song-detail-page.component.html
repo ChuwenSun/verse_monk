@@ -1,0 +1,12 @@
+<div *ngIf="song">
+    <h1>{{ song.title }}</h1>
+    <p><strong>Artist:</strong> {{ song.artist }}</p>
+    <p><strong>Album:</strong> {{ song.album }}</p>
+    <p><strong>Year:</strong> {{ song.year }}</p>
+    <p><strong>Views:</strong> {{ song.views }}</p>
+    <p><strong>Tag:</strong> {{ song.tag }}</p>
+    <p><strong>Features:</strong> {{ song.features && song.features.length ? song.features.join(', ') : 'None' }}</p>
+    <h2>Lyrics</h2>
+    <pre>{{ song.lyrics }}</pre>
+  </div>
+  
