@@ -2,9 +2,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.active{
-    color: #007bff; /* Bootstrap primary blue for example */
-    font-weight: bold;
-    text-decoration: underline;
-  }

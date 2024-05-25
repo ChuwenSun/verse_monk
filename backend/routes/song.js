@@ -3,10 +3,38 @@ const Song = require('../models/song');
 
 const router = express.Router();
 
+router.get('/filter', async (req, res) => {
+  try {
+    const { genre, year, language } = req.query;
+    let query = {};
+
+    if (genre && genre !== 'All Genres') {
+      query.tag = genre;
+    }
+
+    if (year && year !== 'All Years') {
+      query.year = year;
+    }
+
+    if (language && language !== 'All Languages') {
+      query.language = language;
+    }
+
+    const filteredSongs = await Song.find(query);
+    console.log('Filtered songs:', filteredSongs[0]); // Log to debug
+    res.json(filteredSongs);
+  } catch (err) {
+    console.error('Error fetching filtered songs:', err);
+    res.status(500).send(err.message);
+  }
+});
+
+
 // Get hot songs based on views
 router.get('/hot', async (req, res) => {
   try {
     const hotSongs = await Song.find().sort({ views: -1 }).limit(10);
+    console.log('Hot songs:', hotSongs[0]); // Log to debug
     res.json(hotSongs);
   } catch (err) {
     console.error('Error fetching hot songs:', err);
@@ -33,6 +61,7 @@ router.get('/:id', async (req, res) => {
       return res.status(404).send('Song not found');
     }
     res.json(song);
+    console.log('Got songs:', song);
   } catch (err) {
     console.error('Error fetching song:', err);
     res.status(500).send(err.message);

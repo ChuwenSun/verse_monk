@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors'); // Import the CORS package
 const songRoutes = require('./routes/song'); // Import song routes
-
+const annotationRoutes = require('./routes/annotation');
 const app = express();
 const PORT = process.env.PORT || 3000;// Set the port directly
 
@@ -28,8 +28,16 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
+// Basic route for testing
+app.get('/', (req, res) => {
+  res.send('API testing: Hello World!');
+});
+
 // Use song routes
 app.use('/api/songs', songRoutes);
+
+// Use annotation routes
+app.use('/api/annotations', annotationRoutes);
 
 // Basic route for testing
 app.get('/', (req, res) => {
